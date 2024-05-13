@@ -30,13 +30,24 @@ model.fit(training_data, training_labels, epochs=num_epochs, batch_size=batch_si
 test_loss, test_accuracy = model.evaluate(test_data, test_labels)
 print(f"Test accuracy: {test_accuracy}")
 
+# Save the trained model
+model.save("trained_model.h5")
+
 # Trained model for interactions
 # Assuming you have a function called process_input to preprocess user input
 def process_input(input_text):
     # Your preprocessing code here
     return processed_input
 
+def get_feedback(ai_response):
+    # Your feedback logic here
+    if ai_response >= 0.5:
+        return "AI Response: Positive"
+    else:
+        return "AI Response: Negative"
+
 user_input = "What's the weather like today?"
 processed_input = process_input(user_input)
 ai_response = model.predict(processed_input)
-print(f"AI Response: {ai_response}")
+feedback = get_feedback(ai_response)
+print(feedback)
